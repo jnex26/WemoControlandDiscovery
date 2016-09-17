@@ -58,8 +58,9 @@ class UpnpDiscovery {
 
     private void processPacket(DatagramPacket packet) {
         String originaldata = new String(packet.data)
-//        log.info(originaldata)
-        if (originaldata.contains("urn:Belkin:device:controllee") || originaldata.contains("urn:Belkin:device:lightswitch")) {
+     //   System.out.print(originaldata)
+        if (originaldata.contains("urn:Belkin:service:basicevent:1")  )  {
+   //       System.out.print(originaldata)
             if (originaldata.toLowerCase().indexOf("location:") > -1) {
                 String location = originaldata.substring(originaldata.toLowerCase().indexOf("location:"))
                 location = location.substring(0, location.indexOf("\n"))
@@ -79,7 +80,8 @@ class UpnpDiscovery {
             packet.append( "HOST: 239.255.255.250:1900\r\n" )
             packet.append( "MAN: \"ssdp:discover\"\r\n" )
             packet.append( "MX: ").append( "2" ).append( "\r\n" )
-            packet.append( "ST: " ).append( "ssdp:all" ).append( "\r\n" ).append( "\r\n" )
+//            packet.append( "ST: " ).append( "ssdp:all" ).append( "\r\n" ).append( "\r\n" )
+            packet.append( "ST: " ).append( "urn:Belkin:service:basicevent:1" ).append( "\r\n" ).append( "\r\n" )
 //            packet.append( "ST: " ).append( "urn:Belkin:device:controllee:1" ).append( "\r\n" ).append( "\r\n" )
             byte[] data = packet.toString().bytes
             log.info("sending discovery packet")
